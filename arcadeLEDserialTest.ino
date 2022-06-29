@@ -14,13 +14,12 @@ void loop() {
     String str = Serial.readString();
     Serial.println(str);
     
-    if (str == "LEDon"){
+    if (str == "O"){
       digitalWrite(PIN, HIGH);
     }
 
-    if (str == "LEDoff"){
+    if (str == "I"){
       digitalWrite(PIN, LOW);
     }
-    
   }
 }
