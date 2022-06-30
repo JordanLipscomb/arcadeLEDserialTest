@@ -1,25 +1,21 @@
 //Constant Variables
 #define PIN 6
+//Dynamic Variables
 
 void setup() {
   Serial.begin(19200);
-  Serial.setTimeout(500);
+  Serial.setTimeout(10);
   pinMode(PIN, OUTPUT);
   digitalWrite(PIN, LOW);
-
 }
 
 void loop() {
-  if (Serial.available() > 0){
-    String str = Serial.readString();
-    Serial.println(str);
-    
-    if (str == "O"){
-      digitalWrite(PIN, HIGH);
-    }
-
-    if (str == "I"){
-      digitalWrite(PIN, LOW);
-    }
+  switch (Serial.read()){
+    case '1':
+    digitalWrite(PIN,HIGH);
+    break;
+    case '0':
+    digitalWrite(PIN,LOW);
+    break;
   }
 }
