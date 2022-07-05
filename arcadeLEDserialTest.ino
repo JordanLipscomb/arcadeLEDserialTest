@@ -23,10 +23,10 @@ void loop() {
   }
   if (aLEDswitch == '1'){
     for(int i=0;i<nLEDS;i++){
-      pixelStrip.setPixelColor(i,pixelStrip.Color(0,0,0));
+      pixelStrip.setPixelColor(i,255,0,0,0);
       pixelStrip.show();
     }
-    Serial.println("Red");
+    //Serial.println("Red");
     //rainbow(30000UL,25);
   }
   else {
@@ -38,20 +38,22 @@ void lightsOff(unsigned long defltInterval){
   unsigned long prog = millis() - eventRef;
   if (prog <= defltInterval){
     for(int i=0;i<nLEDS;i++){
-      pixelStrip.setPixelColor(i,pixelStrip.Color(0,0,0));
+      pixelStrip.setPixelColor(i,0,0,0,0);
       pixelStrip.show();
     }
-    Serial.println("Off");
+    //Serial.println("Off");
   }
   else {
     aLEDswitch = '1';
   }
 }
 
+/*
+
 void rainbow(unsigned long animInterval, uint8_t cycles){
   unsigned long prog = millis() - eventRef;
   if (prog <= animInterval) {
-    
+
     uint16_t i, j;
     for(j=0; j<256*cycles; j++) {
       for(i=0; i<nLEDS; i++) {
@@ -59,7 +61,7 @@ void rainbow(unsigned long animInterval, uint8_t cycles){
       }
       pixelStrip.show();
     }
-    
+  
   }
   else {
     eventRef = millis();
@@ -92,3 +94,5 @@ uint8_t green(uint32_t c) {
 uint8_t blue(uint32_t c) {
   return (c);
 }
+
+*/
