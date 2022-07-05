@@ -7,7 +7,7 @@
 unsigned long eventRef = 0UL;
 long brightness;
 int aLEDswitch = 0;
-Adafruit_NeoPixel pixelStrip = Adafruit_NeoPixel(nLEDS, LED_PIN, NEO_RGBW + NEO_KHZ800);
+Adafruit_NeoPixel pixelStrip = Adafruit_NeoPixel(nLEDS,LED_PIN,NEO_GRB+NEO_KHZ800);
 
 void setup() {
   Serial.begin(9600);
@@ -23,14 +23,14 @@ void loop() {
   }
   if (aLEDswitch == '1'){
     for(int i=0;i<nLEDS;i++){
-      pixelStrip.setPixelColor(i,255,0,0,0);
+      pixelStrip.setPixelColor(i,0,255,0);
       pixelStrip.show();
     }
     //Serial.println("Red");
     //rainbow(30000UL,25);
   }
   else {
-    lightsOff(10000UL);
+    lightsOff(5000UL);
   }
 }
 
@@ -38,7 +38,7 @@ void lightsOff(unsigned long defltInterval){
   unsigned long prog = millis() - eventRef;
   if (prog <= defltInterval){
     for(int i=0;i<nLEDS;i++){
-      pixelStrip.setPixelColor(i,0,0,0,0);
+      pixelStrip.setPixelColor(i,0,0,0);
       pixelStrip.show();
     }
     //Serial.println("Off");
