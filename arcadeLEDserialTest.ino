@@ -7,11 +7,12 @@
 unsigned long eventRef = 0UL;
 long brightness;
 int aLEDswitch = 0;
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(nLEDS, LED_PIN, NEO_RGBW + NEO_KHZ800);
+Adafruit_NeoPixel pixelStrip = Adafruit_NeoPixel(nLEDS, LED_PIN, NEO_RGBW + NEO_KHZ800);
 
 void setup() {
   Serial.begin(9600);
   pinMode(LED_PIN, OUTPUT);
+  pixelStrip.begin
 }
 
 void loop() {
@@ -19,7 +20,11 @@ void loop() {
     aLEDswitch = Serial.read();
   }
   if (aLEDswitch == '1'){
-    rainbow(30000UL,25);
+    for(int i=0;i<nLEDS;i++){
+    pixelStrip.setPixelColor(i, pixelStrip.Color(100,0,0));
+    pixelStrip.show();
+  }
+    //rainbow(30000UL,25);
   }
   else {
     lightsOff(10000UL);
