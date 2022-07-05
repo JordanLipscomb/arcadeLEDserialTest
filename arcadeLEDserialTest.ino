@@ -23,9 +23,10 @@ void loop() {
   }
   if (aLEDswitch == '1'){
     for(int i=0;i<nLEDS;i++){
-      pixelStrip.setPixelColor(i,100,0,0);
+      pixelStrip.setPixelColor(i,pixelStrip.Color(0,0,0));
       pixelStrip.show();
     }
+    Serial.println("Red");
     //rainbow(30000UL,25);
   }
   else {
@@ -37,9 +38,10 @@ void lightsOff(unsigned long defltInterval){
   unsigned long prog = millis() - eventRef;
   if (prog <= defltInterval){
     for(int i=0;i<nLEDS;i++){
-      pixelStrip.setPixelColor(i,0,0,0);
+      pixelStrip.setPixelColor(i,pixelStrip.Color(0,0,0));
       pixelStrip.show();
     }
+    Serial.println("Off");
   }
   else {
     aLEDswitch = '1';
