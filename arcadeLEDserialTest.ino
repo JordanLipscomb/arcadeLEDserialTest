@@ -7,6 +7,8 @@
 unsigned long eventRef = 0UL;
 long brightness;
 int aLEDswitch;
+String StrUno;
+String StrDos;
 Adafruit_NeoPixel pixelStrip = Adafruit_NeoPixel(nLEDS,LED_PIN,NEO_GRB+NEO_KHZ800);
 
 void setup() {
@@ -21,12 +23,15 @@ void setup() {
 void loop() {
   if (Serial.available() > 0){
     aLEDswitch = Serial.read();
+    StrUno = "String Read: ";
+    StrDos = StrUno + aLEDswitch ;
   }
-  if (aLEDswitch == '1'){
-    rainbow(0UL);
+  Serial.println(StrDos);
+  if (aLEDswitch == '0') {
+    lightsOff(1000UL);
   }
-  else if (aLEDswitch == '/') {
-    lightsOff(0UL);
+  else {
+    rainbow(1000UL);
   }
 }
 
