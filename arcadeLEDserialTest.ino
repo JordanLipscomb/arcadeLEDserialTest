@@ -22,15 +22,16 @@ void loop() {
     aLEDswitch = Serial.read();
   }
   if (aLEDswitch == '1'){
-    for(int i=0;i<nLEDS;i++){
+    /*for(int i=0;i<nLEDS;i++){
       pixelStrip.setPixelColor(i,0,255,0);
       pixelStrip.show();
-    }
-    //Serial.println("Red");
+    }*/
+    Serial.println("Red");
     //rainbow(30000UL,25);
   }
   else {
-    lightsOff(5000UL);
+    Serial.println("Off");
+    //lightsOff(5000UL);
   }
 }
 
