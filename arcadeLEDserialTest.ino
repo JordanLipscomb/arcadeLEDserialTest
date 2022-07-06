@@ -6,7 +6,7 @@
 
 unsigned long eventRef = 0UL;
 long brightness;
-int aLEDswitch = 0;
+int aLEDswitch;
 Adafruit_NeoPixel pixelStrip = Adafruit_NeoPixel(nLEDS,LED_PIN,NEO_GRB+NEO_KHZ800);
 
 void setup() {
@@ -15,6 +15,7 @@ void setup() {
   pixelStrip.setBrightness(ledBright);
   pixelStrip.begin();
   pixelStrip.show();
+  aLEDswitch = '1';
 }
 
 void loop() {
@@ -22,16 +23,10 @@ void loop() {
     aLEDswitch = Serial.read();
   }
   if (aLEDswitch == '1'){
-    /*for(int i=0;i<nLEDS;i++){
-      pixelStrip.setPixelColor(i,0,255,0);
-      pixelStrip.show();
-    }*/
-    Serial.println("Red");
-    //rainbow(30000UL,25);
+    rainbow(0UL);
   }
-  else {
-    Serial.println("Off");
-    //lightsOff(5000UL);
+  else if (aLEDswitch == '/') {
+    lightsOff(0UL);
   }
 }
 
@@ -42,19 +37,23 @@ void lightsOff(unsigned long defltInterval){
       pixelStrip.setPixelColor(i,0,0,0);
       pixelStrip.show();
     }
-    //Serial.println("Off");
+    Serial.println("Off");
   }
   else {
-    aLEDswitch = '1';
+    eventRef = millis();
   }
 }
 
-/*
-
-void rainbow(unsigned long animInterval, uint8_t cycles){
+void rainbow(unsigned long animInterval){
   unsigned long prog = millis() - eventRef;
   if (prog <= animInterval) {
 
+    for(int i=0;i<nLEDS;i++){
+      pixelStrip.setPixelColor(i,0,255,0);
+      pixelStrip.show();
+    }
+    Serial.println("Red");
+    /*
     uint16_t i, j;
     for(j=0; j<256*cycles; j++) {
       for(i=0; i<nLEDS; i++) {
@@ -62,13 +61,13 @@ void rainbow(unsigned long animInterval, uint8_t cycles){
       }
       pixelStrip.show();
     }
-  
+    */
   }
   else {
     eventRef = millis();
   }
 }
-
+/*
 //Color Pickers
 //--------------------
 // Input a value 0 to 255 to get a color value.
