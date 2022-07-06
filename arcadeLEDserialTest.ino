@@ -4,11 +4,11 @@
 #define nLEDS 109
 #define ledBright 255
 
+Adafruit_NeoPixel pixelStrip = Adafruit_NeoPixel(nLEDS,LED_PIN,NEO_RGBW+NEO_KHZ800);
 unsigned long eventRef = 0UL;
 long brightness;
 const unsigned int MAX_MESSAGE_LENGTH = 12;
 String aLEDswitch;
-Adafruit_NeoPixel pixelStrip = Adafruit_NeoPixel(nLEDS,LED_PIN,NEO_GRBW+NEO_KHZ800);
 
 void setup() {
   Serial.begin(9600);
@@ -26,13 +26,13 @@ void loop() {
   if (aLEDswitch == "off"){
     lightsOff(1000UL);
   }
-  if (aLEDswitch == "green"){
+  else if (aLEDswitch == "green"){
     solidGreen(1000UL);
   }
-  if (aLEDswitch == "red"){
+  else if (aLEDswitch == "red"){
     solidRed(1000UL);
   }
-  if (aLEDswitch == "blue"){
+  else if (aLEDswitch == "blue"){
     solidBlue(1000UL);
   }
   else{
@@ -47,7 +47,7 @@ void lightsOff(unsigned long defltInterval){
   unsigned long prog = millis() - eventRef;
   if (prog <= defltInterval){
     for(int i=0;i<nLEDS;i++){
-      pixelStrip.setPixelColor(i,0,0,0,0);
+      pixelStrip.setPixelColor(i,pixelStrip.Color(0,0,0));
       pixelStrip.show();
     }
     Serial.println("Lights are off");
@@ -62,7 +62,7 @@ void solidGreen(unsigned long defltInterval){
   unsigned long prog = millis() - eventRef;
   if (prog <= defltInterval){
     for(int i=0;i<nLEDS;i++){
-      pixelStrip.setPixelColor(i,255,0,0,0);
+      pixelStrip.setPixelColor(i,pixelStrip.Color(0,255,0));
       pixelStrip.show();
     }
     Serial.println("Lights are GREEN");
@@ -77,7 +77,7 @@ void solidRed(unsigned long defltInterval){
   unsigned long prog = millis() - eventRef;
   if (prog <= defltInterval){
     for(int i=0;i<nLEDS;i++){
-      pixelStrip.setPixelColor(i,0,255,0,0);
+      pixelStrip.setPixelColor(i,pixelStrip.Color(255,0,0));
       pixelStrip.show();
     }
     Serial.println("Lights are RED");
@@ -92,7 +92,7 @@ void solidBlue(unsigned long defltInterval){
   unsigned long prog = millis() - eventRef;
   if (prog <= defltInterval){
     for(int i=0;i<nLEDS;i++){
-      pixelStrip.setPixelColor(i,0,0,255,0);
+      pixelStrip.setPixelColor(i,pixelStrip.Color(0,0,255));
       pixelStrip.show();
     }
     Serial.println("Lights are BLUE");
@@ -108,7 +108,7 @@ void rainbow(unsigned long animInterval){
   if (prog <= animInterval) {
 
     for(int i=0;i<nLEDS;i++){
-      pixelStrip.setPixelColor(i,64,191,191,0);
+      pixelStrip.setPixelColor(i,pixelStrip.Color(128,0,128));
       pixelStrip.show();
     }
     Serial.println("Lights are RAINBOW");
