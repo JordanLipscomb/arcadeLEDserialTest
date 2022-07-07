@@ -24,16 +24,16 @@ void loop() {
   arcadeSerialBuffer();
   //Switches LED color patterns based on string received from arcadeSerialBuffer()
   if (aLEDswitch == "off"){
-    lightsOff(1000UL);
+    solidColors(1000UL,0,0,0);
   }
   else if (aLEDswitch == "green"){
-    solidGreen(1000UL);
+    solidColors(10000UL,255,0,0);
   }
   else if (aLEDswitch == "red"){
-    solidRed(1000UL);
+    solidColors(10000UL,0,255,0);
   }
   else if (aLEDswitch == "blue"){
-    solidBlue(1000UL);
+    solidColors(10000UL,0,0,255);
   }
   else{
     rainbow(1000UL);
@@ -42,63 +42,26 @@ void loop() {
 //========================================================
 //Light Pattern Functions
 //========================================================
-//Lights Off
-void lightsOff(unsigned long defltInterval){
-  unsigned long prog = millis() - eventRef;
-  if (prog <= defltInterval){
+//Solid Colors
+void solidColors(unsigned long solidInterval,int g,int r,int b){
+  unsigned long prog=millis()-eventRef;
+  if (prog<=solidInterval){
     for(int i=0;i<nLEDS;i++){
-      pixelStrip.setPixelColor(i,pixelStrip.Color(0,0,0));
+      pixelStrip.setPixelColor(i,pixelStrip.Color(g,r,b));
       pixelStrip.show();
     }
-    Serial.println("Lights are off");
+    //GRB Colors Serial Debug
+    char grbDebug[4]="(,)";
+    Serial.print(grbDebug[0]);
+    Serial.print(g);
+    Serial.print(grbDebug[1]);
+    Serial.print(r);
+    Serial.print(grbDebug[1]);
+    Serial.print(b);
+    Serial.println(grbDebug[2]);
   }
   else {
-    eventRef = millis();
-  }
-}
-//========================================================
-//Solid Green
-void solidGreen(unsigned long defltInterval){
-  unsigned long prog = millis() - eventRef;
-  if (prog <= defltInterval){
-    for(int i=0;i<nLEDS;i++){
-      pixelStrip.setPixelColor(i,pixelStrip.Color(0,255,0));
-      pixelStrip.show();
-    }
-    Serial.println("Lights are GREEN");
-  }
-  else {
-    eventRef = millis();
-  }
-}
-//========================================================
-//Solid Red
-void solidRed(unsigned long defltInterval){
-  unsigned long prog = millis() - eventRef;
-  if (prog <= defltInterval){
-    for(int i=0;i<nLEDS;i++){
-      pixelStrip.setPixelColor(i,pixelStrip.Color(255,0,0));
-      pixelStrip.show();
-    }
-    Serial.println("Lights are RED");
-  }
-  else {
-    eventRef = millis();
-  }
-}
-//========================================================
-//Solid Blue
-void solidBlue(unsigned long defltInterval){
-  unsigned long prog = millis() - eventRef;
-  if (prog <= defltInterval){
-    for(int i=0;i<nLEDS;i++){
-      pixelStrip.setPixelColor(i,pixelStrip.Color(0,0,255));
-      pixelStrip.show();
-    }
-    Serial.println("Lights are BLUE");
-  }
-  else {
-    eventRef = millis();
+    eventRef=millis();
   }
 }
 //========================================================
@@ -108,7 +71,7 @@ void rainbow(unsigned long animInterval){
   if (prog <= animInterval) {
 
     for(int i=0;i<nLEDS;i++){
-      pixelStrip.setPixelColor(i,pixelStrip.Color(128,0,128));
+      pixelStrip.setPixelColor(i,pixelStrip.Color(0,128,128));
       pixelStrip.show();
     }
     Serial.println("Lights are RAINBOW");
